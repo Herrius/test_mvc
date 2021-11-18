@@ -1,0 +1,19 @@
+{
+    "short_name": "yachayqay",
+    "name":"yachaqay test app",
+    "description": "Aplicacion de estilos de aprendizaje Yachayqay",
+    "background_color":"#222222",
+    "theme_color":"#222222",
+    "orientation":"portrait",
+    "display":"landscape",
+    "start_url":".",
+    "scope":".",
+    "icons":[
+        {
+            "src":"src/images/Yachayqay.png",
+            "sizes":"512x512",
+            "type":"image/png"
+        }
+        
+    ]
+}

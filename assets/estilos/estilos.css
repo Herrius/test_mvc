@@ -1,0 +1,125 @@
+/*  Importación de fuentes desde Google Fonts  */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap');
+
+/*  Importación de fuentes desde un archivo del mismo proyecto  */
+@font-face {
+  font-family : 'Proxima Nova Rg';
+  src         : url('estilos/proxima-nova-bold.otf');
+}
+:root{
+    /*  Variables del proyecto  */
+
+  /*  Anchura máxima del contenido en desktop */
+  --max-width : 1200px;
+
+  /*  Colores  */
+  --primary-color     : #02C8A7;
+  --primary-color-alt : #6BBAA7;
+  --secondary-color   : #6C648B;
+  --title-color       : #FFFCFC;
+  --text-color        : #eeeeee;
+  --color             : var(--primary-color);
+  --color-alt         : var(--primary-color-alt);
+
+  /*  Fuentes  */
+  --body-font  : 'Open Sans', sans-serif;
+  --title-font : 'Proxima Nova Rg', sans-serif;
+
+  /*  Tamaños  */
+  --header-height     : 3rem;
+  --section-spacing   : 4rem;
+  --block-spacing     : 2rem;
+  --body-line-height  : 1.6;
+  --title-line-height : 1.3;
+
+  /* Tamaños de fuentes */
+  --h1-font-size      : 2rem;
+  --h2-font-size      : 1.5rem;
+  --h3-font-size      : 1.25rem;
+  --h4-font-size      : 1rem;
+  --big-font-size     : 1rem;
+  --normal-font-size  : 0.875rem;
+  --small-font-size   : 0.75rem;
+  --smaller-font-size : 0.6875rem;
+
+  /* Capas */
+  --z-back       : -10;
+  --z-normal     : 1;
+  --z-front      : 10;
+  --z-tooltip    : 20;
+  --z-overlay    : 30;
+  --z-modal      : 40;
+  --z-fixed      : 50;
+  --z-off-canvas : 100;
+
+  /* Otros */
+  --border-radius : 0.5rem;
+  --box-shadow    : 0 2px 2px rgba(36, 47, 66, 0.1);
+}
+@media screen and (min-width: 1024px) {
+
+    /*  Variables de tamaño en desktop  */
+    :root {
+      --header-height         : 4rem;
+      --section-spacing       : 8rem;
+      --block-spacing         : 4rem;
+      --h1-font-size          : 3rem;
+      --h2-font-size          : 2rem;
+      --h3-font-size          : 1.5rem;
+      --h4-font-size          : 1.25rem;
+      --big-font-size         : 1.25rem;
+      --normal-font-size      : 1rem;
+      --small-font-size       : 0.875rem;
+      --smaller-font-size     : 0.75rem;
+    }
+}
+
+body{
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+h1{
+    font-size: var(--h1-font-size);
+    color: var(--title-color);
+    font-family: var(--title-font);
+}
+p{
+    font-size: var(--big-font-size);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    line-height: var(--body-line-height);
+}
+
+.container{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3rem;
+}
+.sub_bienvenido{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: inherit
+}
+.sub_bienvenido>img{
+    max-width:100%;
+}
+.bienvenido_texto{
+    padding: 1rem;
+}
+.button{
+    width: inherit;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    color: var(--title-color);
+    font-size: var(--big-font-size);
+    padding: 1rem;
+    border-radius: 50px;
+    align-self: center;
+}
+
+
