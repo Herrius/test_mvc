@@ -123,7 +123,7 @@ $next = $pagina + 1;
 
                     //Calculamos botones anterior / siguiente
 
-                    echo $prev;
+    
                     //Boton 'Anterior'
                     if ($prev > 0) {
                         echo ("<a class='siguiente' href='index.php?page=test&codigo=$codigo&idpregunta=$prev'>Anterior</a>");
