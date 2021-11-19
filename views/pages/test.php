@@ -14,7 +14,8 @@ $cantidad = $test->comprobarExistencia($codigo);
 foreach ($cantidad as $r) {
     $codigo_validador = $r['codigo'];
 }
-if ($codigo_validador < 44) {
+var_dump($codigo_validador);
+if ($codigo_validador < 43) {
     $pregunta=0;
     while ($pregunta < 44) {
         $data_test = array(
@@ -84,7 +85,7 @@ $next = $pagina + 1;
             <form class="conti" method="post" action="<?php if ($next <= 45) {
                                                             print 'index.php?page=test&codigo=' . $codigo . '&idpregunta=' . $next;
                                                         } else {
-                                                            print 'index.php?page=test&view=resultado?codigo=' . $codigo;
+                                                            print 'index.php?page=test&view=resultado&codigo=' . $codigo;
                                                         } ?>">
                 <h3 style="color:grey"><?php if ($next <= 45) {
                                             echo ('Pregunta ' . utf8_encode($idpregunta) . ' de 44');

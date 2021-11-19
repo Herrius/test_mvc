@@ -57,8 +57,8 @@
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Yachaqay</span>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="Estadisticas_Individuales.php">Resultados individuales</a>
-                <a class="mdl-navigation__link" href="Estadisticas_Generales_Alumnado.php">Resultados grupales</a>
+            <a class="mdl-navigation__link" href="index.php?page=alumno">Resultados individuales</a>
+                <a class="mdl-navigation__link" href="index.php?page=docente">Resultados grupales</a>
             </nav>
         </div>
         <main class="mdl-layout__content">
