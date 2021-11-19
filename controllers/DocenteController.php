@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/docente.php';
+require_once 'models/Docente.php';
 
 class DocenteController {
 
@@ -41,6 +41,14 @@ class DocenteController {
 		}
 	}
 	
+	public function identidad($codigo){
+		$resultado=new Docente();
+		return	$resultado->identidad($codigo);
+	}
+	public function test($codigo){
+		$resultado=new Docente();
+		return	$resultado->test($codigo);
+	}
 
 
 }
