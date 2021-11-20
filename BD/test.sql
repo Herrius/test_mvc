@@ -14,12 +14,10 @@
 
 
 -- Volcando estructura de base de datos para test
-DROP DATABASE IF EXISTS `test`;
 CREATE DATABASE IF NOT EXISTS `test` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `test`;
 
 -- Volcando estructura para tabla test.docente_retroalimentacion
-DROP TABLE IF EXISTS `docente_retroalimentacion`;
 CREATE TABLE IF NOT EXISTS `docente_retroalimentacion` (
   `tipo_aprendizaje` text NOT NULL,
   `retreoalimentacion` varchar(800) NOT NULL
@@ -39,56 +37,50 @@ INSERT INTO `docente_retroalimentacion` (`tipo_aprendizaje`, `retreoalimentacion
 /*!40000 ALTER TABLE `docente_retroalimentacion` ENABLE KEYS */;
 
 -- Volcando estructura para procedimiento test.PS_MOSTRAR_RETROALIMENTACION
-DROP PROCEDURE IF EXISTS `PS_MOSTRAR_RETROALIMENTACION`;
 DELIMITER //
 CREATE PROCEDURE `PS_MOSTRAR_RETROALIMENTACION`()
 SELECT *from docente_retroalimentacion//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento test.SP_ACTIVO_REFLECTIVO
-DROP PROCEDURE IF EXISTS `SP_ACTIVO_REFLECTIVO`;
 DELIMITER //
 CREATE PROCEDURE `SP_ACTIVO_REFLECTIVO`()
 SELECT * FROM tblrespuestas WHERE codestudiante='71444762'//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento test.SP_BUSQUEDA_ESTUDIANTES
-DROP PROCEDURE IF EXISTS `SP_BUSQUEDA_ESTUDIANTES`;
 DELIMITER //
 CREATE PROCEDURE `SP_BUSQUEDA_ESTUDIANTES`()
 SELECT * FROM tblconsulta WHERE codestudiante NOT LIKE '' ORDER By codestudiante LIMIT 25//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento test.SP_BUSQUEDA_SALON
-DROP PROCEDURE IF EXISTS `SP_BUSQUEDA_SALON`;
 DELIMITER //
 CREATE PROCEDURE `SP_BUSQUEDA_SALON`()
 SELECT * FROM tblconsultasalon WHERE NRC NOT LIKE '' ORDER By NRC LIMIT 25//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento test.SP_MOSTRAR_RESULTADO
-DROP PROCEDURE IF EXISTS `SP_MOSTRAR_RESULTADO`;
 DELIMITER //
-CREATE PROCEDURE `SP_MOSTRAR_RESULTADO`(IN `codigo` VARCHAR(27))
-SELECT * FROM tblresultados WHERE `codestudiante`=codigo LIMIT 1//
+CREATE PROCEDURE `SP_MOSTRAR_RESULTADO`(
+	IN `codigo` VARCHAR(27)
+)
+SELECT * FROM tblresultados WHERE `codestudiante`=codigo  ORDER BY idresultado DESC LIMIT 1//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento test.SP_REPORTE_AULA_AR
-DROP PROCEDURE IF EXISTS `SP_REPORTE_AULA_AR`;
 DELIMITER //
 CREATE PROCEDURE `SP_REPORTE_AULA_AR`(IN `estiloC` VARCHAR(15), IN `NRCC` INT(6))
 SELECT COUNT(activoreflexivo) AS NESTUDIANTES FROM `tblresultados` WHERE codestudiante IN(SELECT codestudiante FROM `tblconsulta` WHERE NRC=NRCC) AND activoreflexivo=estiloC//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento test.SP_REPORTE_AULA_SG
-DROP PROCEDURE IF EXISTS `SP_REPORTE_AULA_SG`;
 DELIMITER //
 CREATE PROCEDURE `SP_REPORTE_AULA_SG`(IN `estiloC` VARCHAR(15), IN `NRCC` INT(6))
 SELECT COUNT(secuencialglobal) AS NESTUDIANTES FROM `tblresultados` WHERE codestudiante IN(SELECT codestudiante FROM `tblconsulta` WHERE NRC=NRCC) AND secuencialglobal=estiloC//
 DELIMITER ;
 
 -- Volcando estructura para tabla test.tblconsulta
-DROP TABLE IF EXISTS `tblconsulta`;
 CREATE TABLE IF NOT EXISTS `tblconsulta` (
   `codestudiante` int(8) NOT NULL,
   `nombreest` varchar(80) NOT NULL,
@@ -107,7 +99,6 @@ INSERT INTO `tblconsulta` (`codestudiante`, `nombreest`, `NRC`) VALUES
 /*!40000 ALTER TABLE `tblconsulta` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblconsultasalon
-DROP TABLE IF EXISTS `tblconsultasalon`;
 CREATE TABLE IF NOT EXISTS `tblconsultasalon` (
   `NRC` int(8) NOT NULL,
   `Nombreasignatura` varchar(50) NOT NULL,
@@ -124,7 +115,6 @@ INSERT INTO `tblconsultasalon` (`NRC`, `Nombreasignatura`) VALUES
 /*!40000 ALTER TABLE `tblconsultasalon` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblestudiante
-DROP TABLE IF EXISTS `tblestudiante`;
 CREATE TABLE IF NOT EXISTS `tblestudiante` (
   `CodEstudiante` int(8) NOT NULL,
   `ApellidosNombres` varchar(200) NOT NULL
@@ -167,7 +157,6 @@ INSERT INTO `tblestudiante` (`CodEstudiante`, `ApellidosNombres`) VALUES
 /*!40000 ALTER TABLE `tblestudiante` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblpreguntas
-DROP TABLE IF EXISTS `tblpreguntas`;
 CREATE TABLE IF NOT EXISTS `tblpreguntas` (
   `idpregunta` int(2) NOT NULL,
   `enunciado` varchar(200) NOT NULL,
@@ -227,7 +216,6 @@ INSERT INTO `tblpreguntas` (`idpregunta`, `enunciado`, `opcion1`, `opcion2`, `ti
 /*!40000 ALTER TABLE `tblpreguntas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblprueba
-DROP TABLE IF EXISTS `tblprueba`;
 CREATE TABLE IF NOT EXISTS `tblprueba` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_estudiante` varchar(27) NOT NULL,
@@ -236,9 +224,9 @@ CREATE TABLE IF NOT EXISTS `tblprueba` (
   PRIMARY KEY (`id`),
   KEY `tblprueba_ibfk_1` (`pregunta`),
   CONSTRAINT `tblprueba_ibfk_1` FOREIGN KEY (`pregunta`) REFERENCES `tblpreguntas` (`idpregunta`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=441 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblprueba: ~196 rows (aproximadamente)
+-- Volcando datos para la tabla test.tblprueba: ~175 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblprueba` DISABLE KEYS */;
 INSERT INTO `tblprueba` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VALUES
 	(1, '', 1, '2'),
@@ -373,96 +361,52 @@ INSERT INTO `tblprueba` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VAL
 	(130, 'asd@hot.com', 42, ''),
 	(131, 'asd@hot.com', 43, ''),
 	(132, 'asd@hot.com', 44, ''),
-	(134, 'prueba@hotmail.com', 1, '2'),
-	(135, 'prueba@hotmail.com', 2, '0'),
-	(136, 'prueba@hotmail.com', 3, '0'),
-	(137, 'prueba@hotmail.com', 4, '0'),
-	(138, 'prueba@hotmail.com', 5, '0'),
-	(139, 'prueba@hotmail.com', 6, '0'),
-	(140, 'prueba@hotmail.com', 7, '0'),
-	(141, 'prueba@hotmail.com', 8, '0'),
-	(142, 'prueba@hotmail.com', 9, '0'),
-	(143, 'prueba@hotmail.com', 10, '0'),
-	(144, 'prueba@hotmail.com', 11, '0'),
-	(145, 'prueba@hotmail.com', 12, '0'),
-	(146, 'prueba@hotmail.com', 13, '0'),
-	(147, 'prueba@hotmail.com', 14, '0'),
-	(148, 'prueba@hotmail.com', 15, '0'),
-	(149, 'prueba@hotmail.com', 16, '0'),
-	(150, 'prueba@hotmail.com', 17, '0'),
-	(151, 'prueba@hotmail.com', 18, '0'),
-	(152, 'prueba@hotmail.com', 19, '0'),
-	(153, 'prueba@hotmail.com', 20, '0'),
-	(154, 'prueba@hotmail.com', 21, '0'),
-	(155, 'prueba@hotmail.com', 22, '0'),
-	(156, 'prueba@hotmail.com', 23, '0'),
-	(157, 'prueba@hotmail.com', 24, '0'),
-	(158, 'prueba@hotmail.com', 25, '0'),
-	(159, 'prueba@hotmail.com', 26, '0'),
-	(160, 'prueba@hotmail.com', 27, '0'),
-	(161, 'prueba@hotmail.com', 28, '0'),
-	(162, 'prueba@hotmail.com', 29, '0'),
-	(163, 'prueba@hotmail.com', 30, '0'),
-	(164, 'prueba@hotmail.com', 31, '0'),
-	(165, 'prueba@hotmail.com', 32, '0'),
-	(166, 'prueba@hotmail.com', 33, '0'),
-	(167, 'prueba@hotmail.com', 34, '0'),
-	(168, 'prueba@hotmail.com', 35, '0'),
-	(169, 'prueba@hotmail.com', 36, '0'),
-	(170, 'prueba@hotmail.com', 37, '0'),
-	(171, 'prueba@hotmail.com', 38, '0'),
-	(172, 'prueba@hotmail.com', 39, '0'),
-	(173, 'prueba@hotmail.com', 40, '0'),
-	(174, 'prueba@hotmail.com', 41, '0'),
-	(175, 'prueba@hotmail.com', 42, '0'),
-	(176, 'prueba@hotmail.com', 43, '0'),
-	(178, 'prueba@hotmail.com', 1, '2'),
-	(179, 'prueba@hotmail.com', 2, '0'),
-	(180, 'prueba@hotmail.com', 3, '0'),
-	(181, 'prueba@hotmail.com', 4, '0'),
-	(182, 'prueba@hotmail.com', 5, '0'),
-	(183, 'prueba@hotmail.com', 6, '0'),
-	(184, 'prueba@hotmail.com', 7, '0'),
-	(185, 'prueba@hotmail.com', 8, '0'),
-	(186, 'prueba@hotmail.com', 9, '0'),
-	(187, 'prueba@hotmail.com', 10, '0'),
-	(188, 'prueba@hotmail.com', 11, '0'),
-	(189, 'prueba@hotmail.com', 12, '0'),
-	(190, 'prueba@hotmail.com', 13, '0'),
-	(191, 'prueba@hotmail.com', 14, '0'),
-	(192, 'prueba@hotmail.com', 15, '0'),
-	(193, 'prueba@hotmail.com', 16, '0'),
-	(194, 'prueba@hotmail.com', 17, '0'),
-	(195, 'prueba@hotmail.com', 18, '0'),
-	(196, 'prueba@hotmail.com', 19, '0'),
-	(197, 'prueba@hotmail.com', 20, '0'),
-	(198, 'prueba@hotmail.com', 21, '0'),
-	(199, 'prueba@hotmail.com', 22, '0'),
-	(200, 'prueba@hotmail.com', 23, '0'),
-	(201, 'prueba@hotmail.com', 24, '0'),
-	(202, 'prueba@hotmail.com', 25, '0'),
-	(203, 'prueba@hotmail.com', 26, '0'),
-	(204, 'prueba@hotmail.com', 27, '0'),
-	(205, 'prueba@hotmail.com', 28, '0'),
-	(206, 'prueba@hotmail.com', 29, '0'),
-	(207, 'prueba@hotmail.com', 30, '0'),
-	(208, 'prueba@hotmail.com', 31, '0'),
-	(209, 'prueba@hotmail.com', 32, '0'),
-	(210, 'prueba@hotmail.com', 33, '0'),
-	(211, 'prueba@hotmail.com', 34, '0'),
-	(212, 'prueba@hotmail.com', 35, '0'),
-	(213, 'prueba@hotmail.com', 36, '0'),
-	(214, 'prueba@hotmail.com', 37, '0'),
-	(215, 'prueba@hotmail.com', 38, '0'),
-	(216, 'prueba@hotmail.com', 39, '0'),
-	(217, 'prueba@hotmail.com', 40, '0'),
-	(218, 'prueba@hotmail.com', 41, '0'),
-	(219, 'prueba@hotmail.com', 42, '0'),
-	(220, 'prueba@hotmail.com', 43, '0');
+	(398, 'prueba@hotmail.com', 1, '1'),
+	(399, 'prueba@hotmail.com', 2, '2'),
+	(400, 'prueba@hotmail.com', 3, '1'),
+	(401, 'prueba@hotmail.com', 4, '2'),
+	(402, 'prueba@hotmail.com', 5, '1'),
+	(403, 'prueba@hotmail.com', 6, '1'),
+	(404, 'prueba@hotmail.com', 7, '1'),
+	(405, 'prueba@hotmail.com', 8, '2'),
+	(406, 'prueba@hotmail.com', 9, '2'),
+	(407, 'prueba@hotmail.com', 10, '2'),
+	(408, 'prueba@hotmail.com', 11, '2'),
+	(409, 'prueba@hotmail.com', 12, '2'),
+	(410, 'prueba@hotmail.com', 13, '2'),
+	(411, 'prueba@hotmail.com', 14, '2'),
+	(412, 'prueba@hotmail.com', 15, '2'),
+	(413, 'prueba@hotmail.com', 16, '2'),
+	(414, 'prueba@hotmail.com', 17, '2'),
+	(415, 'prueba@hotmail.com', 18, '2'),
+	(416, 'prueba@hotmail.com', 19, '1'),
+	(417, 'prueba@hotmail.com', 20, '2'),
+	(418, 'prueba@hotmail.com', 21, '2'),
+	(419, 'prueba@hotmail.com', 22, '2'),
+	(420, 'prueba@hotmail.com', 23, '2'),
+	(421, 'prueba@hotmail.com', 24, '2'),
+	(422, 'prueba@hotmail.com', 25, '2'),
+	(423, 'prueba@hotmail.com', 26, '1'),
+	(424, 'prueba@hotmail.com', 27, '2'),
+	(425, 'prueba@hotmail.com', 28, '2'),
+	(426, 'prueba@hotmail.com', 29, '2'),
+	(427, 'prueba@hotmail.com', 30, '2'),
+	(428, 'prueba@hotmail.com', 31, '2'),
+	(429, 'prueba@hotmail.com', 32, '2'),
+	(430, 'prueba@hotmail.com', 33, '2'),
+	(431, 'prueba@hotmail.com', 34, '1'),
+	(432, 'prueba@hotmail.com', 35, '2'),
+	(433, 'prueba@hotmail.com', 36, '1'),
+	(434, 'prueba@hotmail.com', 37, '2'),
+	(435, 'prueba@hotmail.com', 38, '2'),
+	(436, 'prueba@hotmail.com', 39, '1'),
+	(437, 'prueba@hotmail.com', 40, '1'),
+	(438, 'prueba@hotmail.com', 41, '2'),
+	(439, 'prueba@hotmail.com', 42, '2'),
+	(440, 'prueba@hotmail.com', 43, '2');
 /*!40000 ALTER TABLE `tblprueba` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblrespuestas
-DROP TABLE IF EXISTS `tblrespuestas`;
 CREATE TABLE IF NOT EXISTS `tblrespuestas` (
   `codestudiante` int(8) NOT NULL,
   `idpregunta` int(2) NOT NULL,
@@ -484,7 +428,6 @@ INSERT INTO `tblrespuestas` (`codestudiante`, `idpregunta`, `respuesta1`, `respu
 /*!40000 ALTER TABLE `tblrespuestas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblresultados
-DROP TABLE IF EXISTS `tblresultados`;
 CREATE TABLE IF NOT EXISTS `tblresultados` (
   `idresultado` int(10) NOT NULL AUTO_INCREMENT,
   `codestudiante` varchar(27) NOT NULL,
@@ -495,9 +438,9 @@ CREATE TABLE IF NOT EXISTS `tblresultados` (
   PRIMARY KEY (`idresultado`),
   KEY `codestudiante` (`codestudiante`),
   CONSTRAINT `tblresultados_ibfk_1` FOREIGN KEY (`codestudiante`) REFERENCES `users` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblresultados: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla test.tblresultados: ~15 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblresultados` DISABLE KEYS */;
 INSERT INTO `tblresultados` (`idresultado`, `codestudiante`, `nivelactref`, `nivelsenint`, `nivelvisver`, `nivelsecglo`) VALUES
 	(30, '76927894@continental.edu.pe', 27, 36, 54, 81),
@@ -511,11 +454,11 @@ INSERT INTO `tblresultados` (`idresultado`, `codestudiante`, `nivelactref`, `niv
 	(55, '76927894@continental.edu.pe', 27, 36, 64, 82),
 	(56, '76927894@continental.edu.pe', 27, 36, 64, 82),
 	(57, '76927894@continental.edu.pe', 27, 36, 64, 82),
-	(58, '76927894@continental.edu.pe', 27, 36, 64, 82);
+	(58, '76927894@continental.edu.pe', 27, 36, 64, 82),
+	(61, 'prueba@hotmail.com', 82, 73, 64, 73);
 /*!40000 ALTER TABLE `tblresultados` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.users
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(200) NOT NULL,
