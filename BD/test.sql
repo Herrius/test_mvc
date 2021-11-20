@@ -88,73 +88,29 @@ CREATE TABLE IF NOT EXISTS `tblconsulta` (
   PRIMARY KEY (`codestudiante`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblconsulta: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla test.tblconsulta: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblconsulta` DISABLE KEYS */;
-INSERT INTO `tblconsulta` (`codestudiante`, `nombreest`, `NRC`) VALUES
-	(71444762, 'Delgadillo Lazaro Tania', 8555),
-	(72889436, 'Vilca Cumbrera Gabriela', 8555),
-	(72969241, 'Espiritu Campos Juan Carlos', 8549),
-	(72969242, 'Espiritu Campos Alejadro', 8549),
-	(76927894, 'Ubaldo Porras Enrique', 8555);
 /*!40000 ALTER TABLE `tblconsulta` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblconsultasalon
 CREATE TABLE IF NOT EXISTS `tblconsultasalon` (
   `NRC` int(8) NOT NULL,
   `Nombreasignatura` varchar(50) NOT NULL,
-  PRIMARY KEY (`NRC`)
+  `docente` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`NRC`),
+  KEY `Nombreasignatura` (`Nombreasignatura`),
+  KEY `FK_tblconsultasalon_users` (`docente`),
+  CONSTRAINT `FK_tblconsultasalon_users` FOREIGN KEY (`docente`) REFERENCES `users` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Volcando datos para la tabla test.tblconsultasalon: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblconsultasalon` DISABLE KEYS */;
-INSERT INTO `tblconsultasalon` (`NRC`, `Nombreasignatura`) VALUES
-	(8549, 'DESARROLLO DE SOLUCIONES MÓVILES '),
-	(8555, 'TALLER DE PROYECTOS DE INGENIERÍA I '),
-	(9588, 'AUDITORÍA DE SISTEMAS '),
-	(12906, 'TALLER DE INVESTIGACIÓN I ');
+INSERT INTO `tblconsultasalon` (`NRC`, `Nombreasignatura`, `docente`) VALUES
+	(1, 'sin curso', NULL),
+	(12000, 'BIOTECNOLOGÍA', 'normagamarra@continenta.edu.pe'),
+	(12071, 'SISTEMAS OPERATIVOS', 'ymarquez@continental.edu.pe'),
+	(12133, 'TALLER DE PROYEC DE ING I', 'ymarquez@continental.edu.pe');
 /*!40000 ALTER TABLE `tblconsultasalon` ENABLE KEYS */;
-
--- Volcando estructura para tabla test.tblestudiante
-CREATE TABLE IF NOT EXISTS `tblestudiante` (
-  `CodEstudiante` int(8) NOT NULL,
-  `ApellidosNombres` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Volcando datos para la tabla test.tblestudiante: ~31 rows (aproximadamente)
-/*!40000 ALTER TABLE `tblestudiante` DISABLE KEYS */;
-INSERT INTO `tblestudiante` (`CodEstudiante`, `ApellidosNombres`) VALUES
-	(72889436, 'VILCA CUMBRERA GABRIELA MAYTE'),
-	(78945612, 'ALONSO BECERRA JOSE'),
-	(76887472, 'BERNABE CASANOVA FRANCISCO CESAR'),
-	(71258465, 'CACERES CONTRERAS MARIA DEL MAR '),
-	(74445725, 'CUETO AVELLANEDA RAFAEL'),
-	(73225874, 'DIAZ SEGURA MARIA BELEN'),
-	(78789578, 'FERNANDEZ LOPEZ MARIA DOLORES'),
-	(71458596, 'FERNANDEZ SEGUIN HUGO'),
-	(79638547, 'GALVEZ IBARRA ALICIA'),
-	(71449783, 'GARCIA FERNANDEZ MARIA MERCEDES'),
-	(73558747, 'GODOY GARCIA JOSE EULOGIO '),
-	(78457813, 'GONZÁLEZ DÍAZ	ROCIO'),
-	(78475871, 'GONZALEZ MANZANO CRISTINA MARIA'),
-	(77897423, 'GONZALEZ NAVAS JORGE'),
-	(68745230, 'IGLESIAS PASTOR FRANCISCO JAVIER '),
-	(66002145, 'LATORRE CUEVAS FRANCISCO JAVIER'),
-	(78997400, 'LOPEZ GARCIA CRISTINA LUCIA'),
-	(74112500, 'LORENTE MESAS RAFAEL '),
-	(78978012, 'MAGAÑA HERNANDEZ LUIS '),
-	(78227452, 'MANZANO RAMOS JESUS FRANK'),
-	(70289752, 'MARIN SANCHEZ JOSE MARIA '),
-	(69875241, 'MEDINA DELGAGO FRANCISCO JAVIER '),
-	(63258741, 'MORALES GARCIA JUAN JOSE '),
-	(78968712, 'MORALES SANCHEZ BELINDA'),
-	(70142587, 'MORALES SANCHEZ MARIA JESUS'),
-	(70889710, 'ORTEGA CASERO ANA '),
-	(78475970, 'TORTOSA MARTINEZ ALVARO '),
-	(70114963, 'VAZQUEZ SANCHEZ JAVIER '),
-	(77889544, 'VICENTE CASTILLO VANESA'),
-	(71203652, 'SANCHEZ RAMOS JOSE MARIA '),
-	(72336589, 'GARCIA CRESPO MARIA DEL CARMEN ');
-/*!40000 ALTER TABLE `tblestudiante` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblpreguntas
 CREATE TABLE IF NOT EXISTS `tblpreguntas` (
@@ -215,67 +171,23 @@ INSERT INTO `tblpreguntas` (`idpregunta`, `enunciado`, `opcion1`, `opcion2`, `ti
 	(44, 'Cuando resuelvo problemas en grupo, es más probable que yo:', 'Piense en los pasos para la solución de los problemas.', 'Piense en las posibles consecuencias o aplicaciones de la solución en un amplio rango de campos.', 'Sec-Glo');
 /*!40000 ALTER TABLE `tblpreguntas` ENABLE KEYS */;
 
--- Volcando estructura para tabla test.tblprueba
-CREATE TABLE IF NOT EXISTS `tblprueba` (
+-- Volcando estructura para tabla test.tblrespuestas
+CREATE TABLE IF NOT EXISTS `tblrespuestas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_estudiante` varchar(27) NOT NULL,
   `pregunta` int(2) NOT NULL,
   `respuesta` varchar(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `tblprueba_ibfk_1` (`pregunta`),
-  CONSTRAINT `tblprueba_ibfk_1` FOREIGN KEY (`pregunta`) REFERENCES `tblpreguntas` (`idpregunta`)
-) ENGINE=InnoDB AUTO_INCREMENT=441 DEFAULT CHARSET=latin1;
+  KEY `tblrespuestas_ibfk_1` (`pregunta`),
+  CONSTRAINT `tblrespuestas_ibfk_1` FOREIGN KEY (`pregunta`) REFERENCES `tblpreguntas` (`idpregunta`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=529 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblprueba: ~175 rows (aproximadamente)
-/*!40000 ALTER TABLE `tblprueba` DISABLE KEYS */;
-INSERT INTO `tblprueba` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VALUES
-	(1, '', 1, '2'),
-	(2, '', 2, '2'),
-	(3, '', 3, '2'),
-	(4, '', 4, ''),
-	(5, '', 5, ''),
-	(6, '', 6, ''),
-	(7, '', 7, ''),
-	(8, '', 8, ''),
-	(9, '', 9, ''),
-	(10, '', 10, ''),
-	(11, '', 11, ''),
-	(12, '', 12, ''),
-	(13, '', 13, ''),
-	(14, '', 14, ''),
-	(15, '', 15, ''),
-	(16, '', 16, ''),
-	(17, '', 17, ''),
-	(18, '', 18, ''),
-	(19, '', 19, ''),
-	(20, '', 20, ''),
-	(21, '', 21, ''),
-	(22, '', 22, ''),
-	(23, '', 23, ''),
-	(24, '', 24, ''),
-	(25, '', 25, ''),
-	(26, '', 26, ''),
-	(27, '', 27, ''),
-	(28, '', 28, ''),
-	(29, '', 29, ''),
-	(30, '', 30, ''),
-	(31, '', 31, ''),
-	(32, '', 32, ''),
-	(33, '', 33, ''),
-	(34, '', 34, ''),
-	(35, '', 35, ''),
-	(36, '', 36, ''),
-	(37, '', 37, ''),
-	(38, '', 38, ''),
-	(39, '', 39, ''),
-	(40, '', 40, ''),
-	(41, '', 41, ''),
-	(42, '', 42, ''),
-	(43, '', 43, ''),
-	(44, '', 44, ''),
-	(45, '76927894@continental.edu.pe', 1, '2'),
-	(46, '76927894@continental.edu.pe', 2, '2'),
-	(47, '76927894@continental.edu.pe', 3, '2'),
+-- Volcando datos para la tabla test.tblrespuestas: ~173 rows (aproximadamente)
+/*!40000 ALTER TABLE `tblrespuestas` DISABLE KEYS */;
+INSERT INTO `tblrespuestas` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VALUES
+	(45, '76927894@continental.edu.pe', 1, '1'),
+	(46, '76927894@continental.edu.pe', 2, '1'),
+	(47, '76927894@continental.edu.pe', 3, '1'),
 	(48, '76927894@continental.edu.pe', 4, '2'),
 	(49, '76927894@continental.edu.pe', 5, '2'),
 	(50, '76927894@continental.edu.pe', 6, '1'),
@@ -317,50 +229,6 @@ INSERT INTO `tblprueba` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VAL
 	(86, '76927894@continental.edu.pe', 42, '2'),
 	(87, '76927894@continental.edu.pe', 43, '1'),
 	(88, '76927894@continental.edu.pe', 44, '2'),
-	(89, 'asd@hot.com', 1, '1'),
-	(90, 'asd@hot.com', 2, '1'),
-	(91, 'asd@hot.com', 3, ''),
-	(92, 'asd@hot.com', 4, ''),
-	(93, 'asd@hot.com', 5, '2'),
-	(94, 'asd@hot.com', 6, ''),
-	(95, 'asd@hot.com', 7, ''),
-	(96, 'asd@hot.com', 8, ''),
-	(97, 'asd@hot.com', 9, ''),
-	(98, 'asd@hot.com', 10, ''),
-	(99, 'asd@hot.com', 11, ''),
-	(100, 'asd@hot.com', 12, ''),
-	(101, 'asd@hot.com', 13, ''),
-	(102, 'asd@hot.com', 14, ''),
-	(103, 'asd@hot.com', 15, ''),
-	(104, 'asd@hot.com', 16, ''),
-	(105, 'asd@hot.com', 17, ''),
-	(106, 'asd@hot.com', 18, ''),
-	(107, 'asd@hot.com', 19, ''),
-	(108, 'asd@hot.com', 20, ''),
-	(109, 'asd@hot.com', 21, ''),
-	(110, 'asd@hot.com', 22, ''),
-	(111, 'asd@hot.com', 23, ''),
-	(112, 'asd@hot.com', 24, ''),
-	(113, 'asd@hot.com', 25, ''),
-	(114, 'asd@hot.com', 26, ''),
-	(115, 'asd@hot.com', 27, ''),
-	(116, 'asd@hot.com', 28, ''),
-	(117, 'asd@hot.com', 29, ''),
-	(118, 'asd@hot.com', 30, ''),
-	(119, 'asd@hot.com', 31, ''),
-	(120, 'asd@hot.com', 32, ''),
-	(121, 'asd@hot.com', 33, ''),
-	(122, 'asd@hot.com', 34, ''),
-	(123, 'asd@hot.com', 35, ''),
-	(124, 'asd@hot.com', 36, ''),
-	(125, 'asd@hot.com', 37, ''),
-	(126, 'asd@hot.com', 38, ''),
-	(127, 'asd@hot.com', 39, ''),
-	(128, 'asd@hot.com', 40, ''),
-	(129, 'asd@hot.com', 41, ''),
-	(130, 'asd@hot.com', 42, ''),
-	(131, 'asd@hot.com', 43, ''),
-	(132, 'asd@hot.com', 44, ''),
 	(398, 'prueba@hotmail.com', 1, '1'),
 	(399, 'prueba@hotmail.com', 2, '2'),
 	(400, 'prueba@hotmail.com', 3, '1'),
@@ -403,28 +271,93 @@ INSERT INTO `tblprueba` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VAL
 	(437, 'prueba@hotmail.com', 40, '1'),
 	(438, 'prueba@hotmail.com', 41, '2'),
 	(439, 'prueba@hotmail.com', 42, '2'),
-	(440, 'prueba@hotmail.com', 43, '2');
-/*!40000 ALTER TABLE `tblprueba` ENABLE KEYS */;
-
--- Volcando estructura para tabla test.tblrespuestas
-CREATE TABLE IF NOT EXISTS `tblrespuestas` (
-  `codestudiante` int(8) NOT NULL,
-  `idpregunta` int(2) NOT NULL,
-  `respuesta1` int(1) NOT NULL,
-  `respuesta2` int(1) NOT NULL,
-  PRIMARY KEY (`codestudiante`),
-  KEY `idpregunta` (`idpregunta`),
-  CONSTRAINT `tblrespuestas_ibfk_1` FOREIGN KEY (`idpregunta`) REFERENCES `tblpreguntas` (`idpregunta`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Volcando datos para la tabla test.tblrespuestas: ~5 rows (aproximadamente)
-/*!40000 ALTER TABLE `tblrespuestas` DISABLE KEYS */;
-INSERT INTO `tblrespuestas` (`codestudiante`, `idpregunta`, `respuesta1`, `respuesta2`) VALUES
-	(71444762, 1, 0, 1),
-	(72889436, 1, 0, 0),
-	(72969241, 1, 0, 1),
-	(72969242, 1, 0, 1),
-	(76927894, 1, 1, 0);
+	(440, 'prueba@hotmail.com', 43, '2'),
+	(442, 'juanca@hotmail.com', 1, '1'),
+	(443, 'juanca@hotmail.com', 2, '0'),
+	(444, 'juanca@hotmail.com', 3, '0'),
+	(445, 'juanca@hotmail.com', 4, '0'),
+	(446, 'juanca@hotmail.com', 5, '0'),
+	(447, 'juanca@hotmail.com', 6, '0'),
+	(448, 'juanca@hotmail.com', 7, '0'),
+	(449, 'juanca@hotmail.com', 8, '0'),
+	(450, 'juanca@hotmail.com', 9, '0'),
+	(451, 'juanca@hotmail.com', 10, '0'),
+	(452, 'juanca@hotmail.com', 11, '0'),
+	(453, 'juanca@hotmail.com', 12, '0'),
+	(454, 'juanca@hotmail.com', 13, '0'),
+	(455, 'juanca@hotmail.com', 14, '0'),
+	(456, 'juanca@hotmail.com', 15, '0'),
+	(457, 'juanca@hotmail.com', 16, '0'),
+	(458, 'juanca@hotmail.com', 17, '0'),
+	(459, 'juanca@hotmail.com', 18, '0'),
+	(460, 'juanca@hotmail.com', 19, '0'),
+	(461, 'juanca@hotmail.com', 20, '0'),
+	(462, 'juanca@hotmail.com', 21, '0'),
+	(463, 'juanca@hotmail.com', 22, '0'),
+	(464, 'juanca@hotmail.com', 23, '0'),
+	(465, 'juanca@hotmail.com', 24, '0'),
+	(466, 'juanca@hotmail.com', 25, '0'),
+	(467, 'juanca@hotmail.com', 26, '0'),
+	(468, 'juanca@hotmail.com', 27, '0'),
+	(469, 'juanca@hotmail.com', 28, '0'),
+	(470, 'juanca@hotmail.com', 29, '0'),
+	(471, 'juanca@hotmail.com', 30, '0'),
+	(472, 'juanca@hotmail.com', 31, '0'),
+	(473, 'juanca@hotmail.com', 32, '0'),
+	(474, 'juanca@hotmail.com', 33, '0'),
+	(475, 'juanca@hotmail.com', 34, '0'),
+	(476, 'juanca@hotmail.com', 35, '0'),
+	(477, 'juanca@hotmail.com', 36, '0'),
+	(478, 'juanca@hotmail.com', 37, '0'),
+	(479, 'juanca@hotmail.com', 38, '0'),
+	(480, 'juanca@hotmail.com', 39, '0'),
+	(481, 'juanca@hotmail.com', 40, '0'),
+	(482, 'juanca@hotmail.com', 41, '0'),
+	(483, 'juanca@hotmail.com', 42, '0'),
+	(484, 'juanca@hotmail.com', 43, '0'),
+	(486, '77777777@cono.com', 1, '1'),
+	(487, '77777777@cono.com', 2, '2'),
+	(488, '77777777@cono.com', 3, '0'),
+	(489, '77777777@cono.com', 4, '0'),
+	(490, '77777777@cono.com', 5, '0'),
+	(491, '77777777@cono.com', 6, '0'),
+	(492, '77777777@cono.com', 7, '0'),
+	(493, '77777777@cono.com', 8, '0'),
+	(494, '77777777@cono.com', 9, '0'),
+	(495, '77777777@cono.com', 10, '0'),
+	(496, '77777777@cono.com', 11, '0'),
+	(497, '77777777@cono.com', 12, '0'),
+	(498, '77777777@cono.com', 13, '0'),
+	(499, '77777777@cono.com', 14, '0'),
+	(500, '77777777@cono.com', 15, '0'),
+	(501, '77777777@cono.com', 16, '0'),
+	(502, '77777777@cono.com', 17, '0'),
+	(503, '77777777@cono.com', 18, '0'),
+	(504, '77777777@cono.com', 19, '0'),
+	(505, '77777777@cono.com', 20, '0'),
+	(506, '77777777@cono.com', 21, '0'),
+	(507, '77777777@cono.com', 22, '0'),
+	(508, '77777777@cono.com', 23, '0'),
+	(509, '77777777@cono.com', 24, '0'),
+	(510, '77777777@cono.com', 25, '0'),
+	(511, '77777777@cono.com', 26, '0'),
+	(512, '77777777@cono.com', 27, '0'),
+	(513, '77777777@cono.com', 28, '0'),
+	(514, '77777777@cono.com', 29, '0'),
+	(515, '77777777@cono.com', 30, '0'),
+	(516, '77777777@cono.com', 31, '0'),
+	(517, '77777777@cono.com', 32, '0'),
+	(518, '77777777@cono.com', 33, '0'),
+	(519, '77777777@cono.com', 34, '0'),
+	(520, '77777777@cono.com', 35, '0'),
+	(521, '77777777@cono.com', 36, '0'),
+	(522, '77777777@cono.com', 37, '0'),
+	(523, '77777777@cono.com', 38, '0'),
+	(524, '77777777@cono.com', 39, '0'),
+	(525, '77777777@cono.com', 40, '0'),
+	(526, '77777777@cono.com', 41, '0'),
+	(527, '77777777@cono.com', 42, '0'),
+	(528, '77777777@cono.com', 43, '0');
 /*!40000 ALTER TABLE `tblrespuestas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblresultados
@@ -435,49 +368,50 @@ CREATE TABLE IF NOT EXISTS `tblresultados` (
   `nivelsenint` int(3) NOT NULL,
   `nivelvisver` int(3) NOT NULL,
   `nivelsecglo` int(3) NOT NULL,
+  `curso` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idresultado`),
   KEY `codestudiante` (`codestudiante`),
-  CONSTRAINT `tblresultados_ibfk_1` FOREIGN KEY (`codestudiante`) REFERENCES `users` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+  KEY `FK_tblresultados_users_2` (`curso`),
+  CONSTRAINT `FK_tblresultados_users` FOREIGN KEY (`codestudiante`) REFERENCES `users` (`email`),
+  CONSTRAINT `FK_tblresultados_users_2` FOREIGN KEY (`curso`) REFERENCES `users` (`curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblresultados: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla test.tblresultados: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblresultados` DISABLE KEYS */;
-INSERT INTO `tblresultados` (`idresultado`, `codestudiante`, `nivelactref`, `nivelsenint`, `nivelvisver`, `nivelsecglo`) VALUES
-	(30, '76927894@continental.edu.pe', 27, 36, 54, 81),
-	(31, '76927894@continental.edu.pe', 27, 36, 54, 90),
-	(32, '76927894', 0, 0, 0, 0),
-	(33, '76927894', 0, 0, 0, 0),
-	(51, '76927894@continental.edu.pe', 27, 36, 54, 90),
-	(52, '76927894@continental.edu.pe', 27, 36, 54, 90),
-	(53, '76927894@continental.edu.pe', 27, 36, 54, 90),
-	(54, '76927894@continental.edu.pe', 27, 36, 64, 82),
-	(55, '76927894@continental.edu.pe', 27, 36, 64, 82),
-	(56, '76927894@continental.edu.pe', 27, 36, 64, 82),
-	(57, '76927894@continental.edu.pe', 27, 36, 64, 82),
-	(58, '76927894@continental.edu.pe', 27, 36, 64, 82),
-	(61, 'prueba@hotmail.com', 82, 73, 64, 73);
+INSERT INTO `tblresultados` (`idresultado`, `codestudiante`, `nivelactref`, `nivelsenint`, `nivelvisver`, `nivelsecglo`, `curso`) VALUES
+	(58, '76927894@continental.edu.pe', 27, 36, 64, 82, NULL),
+	(61, 'prueba@hotmail.com', 82, 73, 64, 73, NULL),
+	(63, '77777777@cono.com', 0, 9, 0, 0, 'TALLER DE PROYEC DE ING I');
 /*!40000 ALTER TABLE `tblresultados` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(200) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(200) NOT NULL,
   `id_rol` int(11) DEFAULT NULL,
+  `codigo` varchar(13) DEFAULT NULL,
+  `curso` varchar(50) NOT NULL,
+  `nombres` varchar(50) DEFAULT NULL,
+  `apellidos` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `email` (`email`),
+  KEY `FK_users_tblconsultasalon` (`curso`),
+  CONSTRAINT `FK_users_tblconsultasalon` FOREIGN KEY (`curso`) REFERENCES `tblconsultasalon` (`Nombreasignatura`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.users: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla test.users: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `email`, `password`, `id_rol`) VALUES
-	(1, '123@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
-	(2, '76927894', 'e10adc3949ba59abbe56e057f20f883e', 0),
-	(3, '76927894@continental.edu.pe', 'e10adc3949ba59abbe56e057f20f883e', 0),
-	(4, 'asd@hot.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
-	(5, 'gabu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
-	(6, 'pedro@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
-	(7, 'prueba@hotmail.com', '202cb962ac59075b964b07152d234b70', 0);
+INSERT INTO `users` (`id`, `email`, `password`, `id_rol`, `codigo`, `curso`, `nombres`, `apellidos`) VALUES
+	(3, '76927894@continental.edu.pe', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, 'sin curso', NULL, NULL),
+	(4, 'asd@hot.com', 'e10adc3949ba59abbe56e057f20f883e', 1, NULL, 'sin curso', NULL, NULL),
+	(5, 'gabu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, 'sin curso', NULL, NULL),
+	(6, 'pedro@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, 'sin curso', NULL, NULL),
+	(7, 'prueba@hotmail.com', '202cb962ac59075b964b07152d234b70', 0, NULL, 'sin curso', NULL, NULL),
+	(8, 'juanca@hotmail.com', '202cb962ac59075b964b07152d234b70', 0, NULL, 'sin curso', NULL, NULL),
+	(9, 'ymarquez@continental.edu.pe', '92ceea77935fb95f3bf6ae2d3264f57a', 1, NULL, 'TALLER DE PROYEC DE ING I', 'yuri', 'marquez'),
+	(10, 'normagamarra@continenta.edu.pe', 'normagamarra', 1, NULL, 'BIOTECNOLOGÍA', 'norma', 'gamarra'),
+	(14, '77777777@cono.com', 'e10adc3949ba59abbe56e057f20f883e', 0, '77777777', 'TALLER DE PROYEC DE ING I', 'rotzank', 'dross');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
