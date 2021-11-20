@@ -40,6 +40,11 @@ class TestController {
 	}
 	public function guardarResultados($datos){
 		$guardar=new Test();
+		
+		foreach($guardar->consultarCurso($datos['codestudiante']) as $r){
+			$resultado=$r['curso'];
+		}
+		$datos['curso']=$resultado;
 		return $guardar->guardarResultados($datos);
 	}
 	public function comprobarExistencia($codigo){

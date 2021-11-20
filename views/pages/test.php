@@ -14,7 +14,7 @@ $cantidad = $test->comprobarExistencia($codigo);
 foreach ($cantidad as $r) {
     $codigo_validador = $r['codigo'];
 }
-var_dump($codigo_validador);
+
 if ($codigo_validador < 43) {
     $pregunta=0;
     while ($pregunta < 44) {
@@ -146,7 +146,6 @@ $next = $pagina + 1;
                         $resultado1 = $test->calcularPorcentaje($codigo, 'Sec-Glo');
                         $resultado2 = $test->calcularPorcentaje($codigo, 'Sen-Int');
                         $resultado3 = $test->calcularPorcentaje($codigo, 'Vis-Ver');
-
                         foreach ($resultado as $r) {
                             $reflexivo = (($r['numero'] / 11) * 100);
                         }
@@ -167,6 +166,7 @@ $next = $pagina + 1;
                             'nivelsenint' => $intuitivo, 
                             'nivelvisver' => $verbal, 
                             'nivelsecglo' => $global, 
+                            'curso' => '', 
                         );
                         $test->guardarResultados($datos);
                     }

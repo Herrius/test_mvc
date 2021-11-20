@@ -22,6 +22,7 @@ if (isset($_POST['acceso'])) {
   <meta utfset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
   <link rel="stylesheet" href="assets/css/styles_test.css">
   <title>Inicio Sesión Yachayqay Test</title>
 </head>
@@ -37,9 +38,9 @@ if (isset($_POST['acceso'])) {
 
       <form action="index.php?page=login" method="POST" name="loginForm" id="loginForm" class="conti">
 
-        <h1 style="color: #560e99" ;> YACHAYQAY TEST </h1>
+        <h1 class="fw-bold"> YACHAYQAY</h1>
 
-        <h2>Iniciar Sesion</h2>
+        <h2 class="h3">Iniciar Sesion</h2>
         <span>o <a href="index.php?page=index&view=signup">Resgistrate</a></span>
 
           <input name="email" type="email" id="email" class="form-control" placeholder="Ingrese su Email" maxlength="27">

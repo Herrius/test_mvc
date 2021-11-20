@@ -34,7 +34,8 @@ class UsuarioController {
 		} else {
 			$errores = '';
 		}
-
+		//obtiene el codigo antes del email
+		$datos['codigo']=substr($datos['email'],0,8);
 		$usuario = new Usuario();
 		$usuario->guardarUsuario($datos);
 		session_destroy();
@@ -63,7 +64,10 @@ class UsuarioController {
 			}
 
 		}
-		echo "<div class='alert alert-danger'>Usuario y/o contraseña incorrecta</diV>";
+		echo "<script>
+		alert('Usuario y/o contraseña');
+		</script>";
+		header('index.php?page=login');
 
 	}
 
