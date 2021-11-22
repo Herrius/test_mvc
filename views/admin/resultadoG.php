@@ -1,4 +1,30 @@
 <?php
+//consulta mvc
+ require_once 'controllers/DocenteController.php';
+ $docente = new DocenteController();
+ $estudiante=$docente->contar();
+ $reflexivo=$docente->contarEstilo('nivelactref');
+ $intuitivo=$docente->contarEstilo('nivelsenint');
+ $verbal=$docente->contarEstilo('nivelvisver');
+ $global=$docente->contarEstilo('nivelsecglo');
+
+ foreach($reflexivo as $r){
+    $cantidadr=$r['ESTILO'];
+    $promedior=$r['PROMEDIO'];
+ }
+ foreach($intuitivo as $r){
+    $cantidadi=$r['ESTILO'];
+    $promedioi=$r['PROMEDIO'];
+ }
+ foreach($verbal as $r){
+    $cantidadv=$r['ESTILO'];
+    $promediov=$r['PROMEDIO'];
+ }
+ foreach($global as $r){
+    $cantidadg=$r['ESTILO'];
+    $promediog=$r['PROMEDIO'];
+ }
+ // consulta directa
   $conn=mysqli_connect ('localhost','root','','test');
   $nrc=$_GET['nrc'];
   $query="SELECT * FROM tblconsultasalon where nrc='$nrc'";
@@ -55,7 +81,9 @@
                         </div> -->
                         <div class="mdl-cell mdl-cell--12-col">
                            <p class="student-title display-4">Estilos de aprendizaje del salón: <?php print(utf8_encode($result['Nombreasignatura'])." ".$result['NRC'])?></p>
-                           <p class="display-2">Numero de estudiantes: 35</p>
+                           <p class="display-2">Numero de estudiantes: <?php foreach($estudiante as $r){
+                                    print($r['ESTUDIANTES']);
+                               }?></p>
                         </div>
                         <div id="columnchart_values" style="width: 1300px; height: 300px;"></div>
                     </div>
@@ -76,14 +104,14 @@
                                 <div class="demo-charts mdl-color--white mdl-shadow--2dp">
                                     <div class="student-score">
                                         <span>Activo</span>
-                                        <span>12.5%</span>
+                                        <span><?php print(number_format(100-$promedior,2,',',' '));?></span>
                                     </div>
                                         <p>Aprenden trabajando con otros</p>
                 
                                 
                                     <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart note-score">
                                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0">82%</text>
+                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0"><?php print(number_format(100-$promedior,2,',',' '));?>%</text>
                                         <text x="0.5" y="0.5" font-family="Roboto" font-size="0.08" fill="#000" text-anchor="middle" dy="0.15">ESTUDIANTES</text>
                                     </svg>
                                 </div>
@@ -92,14 +120,14 @@
                                 <div class="demo-charts mdl-color--white mdl-shadow--2dp">
                                     <div class="student-score">
                                         <span>Reflexivo</span>
-                                        <span>12.5%</span>
+                                        <span><?php print(number_format($promedior,2,',',' '));?></span>
                                     </div>
                                         <p>Aprenden trabajando con otros</p>
                 
                                 
                                     <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart note-score">
                                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0">82%</text>
+                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0"><?php print(number_format($promedior,2,',',' '));?>%</text>
                                         <text x="0.5" y="0.5" font-family="Roboto" font-size="0.08" fill="#000" text-anchor="middle" dy="0.15">ESTUDIANTES</text>
                                     </svg>
                                 </div>
@@ -108,14 +136,14 @@
                                 <div class="demo-charts mdl-color--white mdl-shadow--2dp">
                                     <div class="student-score">
                                         <span>Sensorial</span>
-                                        <span>12.5%</span>
+                                        <span><?php print(number_format(100-$promedioi,2,',',' '));?>%</span>
                                     </div>
                                         <p>Aprenden trabajando con otros</p>
                 
                                 
                                     <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart note-score">
                                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0">82%</text>
+                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0"><?php print(number_format(100-$promedioi,2,',',' '));?>%</text>
                                         <text x="0.5" y="0.5" font-family="Roboto" font-size="0.08" fill="#000" text-anchor="middle" dy="0.15">ESTUDIANTES</text>
                                     </svg>
                                 </div>
@@ -124,14 +152,14 @@
                                 <div class="demo-charts mdl-color--white mdl-shadow--2dp">
                                     <div class="student-score">
                                         <span>Intuitivo</span>
-                                        <span>12.5%</span>
+                                        <span><?php print(number_format($promedioi,2,',',' '));?></span>
                                     </div>
                                         <p>Aprenden trabajando con otros</p>
                   
                                    
                                     <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart note-score">
                                         <use xlink:href="#piechart" mask="url(#piemask)" />
-                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0">82%</text>
+                                        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.2" fill="#000" text-anchor="middle" dy="0"><?php print(number_format($promedioi,2,',',' '));?>%</text>
                                         <text x="0.5" y="0.5" font-family="Roboto" font-size="0.08" fill="#000" text-anchor="middle" dy="0.15">ESTUDIANTES</text>
                                     </svg>
                                 </div>
@@ -229,12 +257,15 @@
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
         ["Element", "Numero de estudiantes", { role: "style" } ],
-        ["Activo", 22, "#d8cbfd"],
-        ["Reflexivo", 18, "#d8cbfd"],
-        ["Sensorial", 14, "#d8cbfd"],
-        ["Intuitivo", 26, "#d8cbfd"],
-        ["Visual", 20, "#d8cbfd"],
-        ["Verbal", 20, "#d8cbfd"]
+        ["Activo", <?php print(abs($r['ESTUDIANTES']-$cantidadr));?>, "#d8cbfd"],
+        ["Reflexivo", <?php print($cantidadr);?>, "#d8cbfd"],
+        ["Sensorial", <?php print(abs($r['ESTUDIANTES']-$cantidadi));?>, "#d8cbfd"],
+        ["Intuitivo", <?php print($cantidadi);?>, "#d8cbfd"],
+        ["Visual", <?php print(abs($r['ESTUDIANTES']-$cantidadv));?>, "#d8cbfd"],
+        ["Verbal", <?php print($cantidadv);?>, "#d8cbfd"],
+        ["Secuencial", <?php print(abs($r['ESTUDIANTES']-$cantidadg));?>, "#d8cbfd"],
+        ["Global", <?php print($cantidadg);?>, "#d8cbfd"]
+  
         
       ]);
 

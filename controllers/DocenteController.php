@@ -50,5 +50,13 @@ class DocenteController {
 		return	$resultado->test($codigo);
 	}
 
+	public function contar(){
+		$resultado=new Docente();
+		return	$resultado->contar();
+	}
+	public function contarEstilo($estilo){
+		$resultado=new Docente();
+		return	$resultado->contarEstilo($estilo);
+	}
 
 }

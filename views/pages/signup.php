@@ -62,7 +62,7 @@ if (isset($_POST['registrar'])) {
             if (isset($_SESSION['mensaje'])) {
                 $mensaje=$_SESSION['mensaje'];
                 echo '<script>
-                alert("Error'.$mensaje.'");
+                alert("'.$mensaje.'");
                 window.location.reload();
                 </script>';
                 echo "<div class='alert alert-primary' role='alert'>" . $_SESSION['mensaje'] . "</div>";
@@ -76,7 +76,7 @@ if (isset($_POST['registrar'])) {
                 <input type="text" name="name" id="name" placeholder="Nombre" class="form-control" maxlength="27" required>
                 <select id="curso" name="curso" class="form-select" required>
                     <option selected hidden disabled>Escoga un curso</option>
-                    <option value="sin curso">sin curso</option>
+                    <option value="BIOTECNOLOGÍA">BIOTECNOLOGÍA</option>
                 </select>
                 <input type="email" name="email" id="email" placeholder="Registre su Email" class="form-control" maxlength="27" required>
                 <input name="password" type="password" id="password" class="form-control" placeholder="Ingrese su contraseña" required>

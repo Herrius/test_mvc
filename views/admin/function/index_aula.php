@@ -4,7 +4,7 @@
     $conn=mysqli_connect ('localhost','root','','test');
 
     $salida="";
-    $query="CALL SP_BUSQUEDA_SALON";
+    $query="SELECT * FROM tblconsultasalon WHERE NRC=12000";
 
     if (isset($_POST['consulta'])) {
     	$q = $conn->real_escape_string($_POST['consulta']);

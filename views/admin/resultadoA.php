@@ -6,7 +6,6 @@
    
     $test=$docente->test($_GET['estudiante']);
 
-
     foreach($test as $r){
         $activo=$r['nivelactref'];
         $reflexivo=abs($r['nivelactref'] - 100);
@@ -67,27 +66,26 @@
                 <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-grid profile">
                         <div class="mdl-cell mdl-cell--4-col profile-image">
-                            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80" alt="">
+                            <img src="https://thispersondoesnotexist.com/image" alt="">
                         </div>
                         <div class="mdl-cell mdl-cell--8-col">
                             <?php 
                                 foreach($result as $r){
+                                }
                             ?>
-                            <p class="student-title"><?php print($r['nombreest']) ?></p>
+                            <p class="student-title"><?php print($r['fullnombre']) ?></p>
                             <ul>
                                 <li>Ciclo 10</li>
                                 <li>Sede: Huancayo</li>
-                                <li>Codigo: <?php print($r['codestudiante']) ?></li>
-                                <li>Correo: <?php print($r['codestudiante']) ?>@continental.edu.pe</li>
+                                <li>Codigo: <?php print(substr($r['codestudiante'],0,8)) ?></li>
+                                <li>Correo: <?php print($r['codestudiante']) ?></li>
                             </ul>
-                            <?php
-                                }
-                            ?>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="mdl-cell mdl-cell--6-col profile">
-                    <div class="student-title width-100">Fundamento de programación</div>
+                    <div class="student-title width-100"><?php print($r['curso'])?></div>
                     <div class="notes width-100">
                         <span>
                             <p class="note-title">C1</p>

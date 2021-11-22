@@ -166,7 +166,7 @@ $next = $pagina + 1;
                             'nivelsenint' => $intuitivo, 
                             'nivelvisver' => $verbal, 
                             'nivelsecglo' => $global, 
-                            'curso' => '', 
+                            'curso' => 'BIOTECNOLOGÍA', 
                         );
                         $test->guardarResultados($datos);
                     }
