@@ -17,7 +17,7 @@ foreach ($cantidad as $r) {
 
 if ($codigo_validador < 43) {
     $pregunta=0;
-    while ($pregunta < 44) {
+    while ($pregunta <= 44) {
         $data_test = array(
             'codigo_estudiante' => $codigo,
             'pregunta' => $pregunta,
@@ -79,7 +79,7 @@ $next = $pagina + 1;
     <div class="body">
         <div class="container">
             <header class="img">
-                <img src="assets/img/UC-Horizontal-White 1.png">
+                <img src="assets/img/UNCP.png">
             </header>
             <!-- para capturar los datos se necesita de un form con method post -->
             <form class="conti" method="post" action="<?php if ($next <= 45) {

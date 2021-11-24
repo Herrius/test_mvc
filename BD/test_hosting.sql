@@ -14,8 +14,7 @@
 
 
 -- Volcando estructura de base de datos para test
-CREATE DATABASE IF NOT EXISTS `test` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `test`;
+
 
 -- Volcando estructura para tabla test.docente_retroalimentacion
 CREATE TABLE IF NOT EXISTS `docente_retroalimentacion` (

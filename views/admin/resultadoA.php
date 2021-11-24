@@ -7,12 +7,12 @@
     $test=$docente->test($_GET['estudiante']);
 
     foreach($test as $r){
-        $activo=$r['nivelactref'];
-        $reflexivo=abs($r['nivelactref'] - 100);
-        $sensorial=$r['nivelsenint'];
-        $intuitivo=abs($r['nivelsenint'] - 100);
-        $visual=$r['nivelvisver'];
-        $verbal=abs($r['nivelvisver'] - 100);
+        $activo=abs($r['nivelactref'] - 100);
+        $reflexivo=$r['nivelactref'];
+        $intuitivo=$r['nivelsenint'];
+        $sensorial=abs($r['nivelsenint'] - 100);
+        $verbal=$r['nivelvisver'];
+        $visual=abs($r['nivelvisver'] - 100);
         $global=$r['nivelsecglo'];
         $secuencial=abs($r['nivelsecglo'] - 100);
     };

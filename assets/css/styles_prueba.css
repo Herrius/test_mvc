@@ -22,7 +22,7 @@
 body{
     min-height: 100vh;
     min-width: 100vw;
-    background-image:linear-gradient(90deg, #e6394785 0% , #cd1f1f85 22.17%, #C1358485 49.41%, #7A00C685 81.28%),url(../imagenes/questions.png);
+    background-image:linear-gradient(90deg, #19349885 0% , #19349885 22.17%, #1597E585 49.41%, #69DADB85 81.28%),url(../img/questions.png);
     margin: 0;
 }
 header {

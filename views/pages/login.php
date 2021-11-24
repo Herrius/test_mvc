@@ -31,7 +31,7 @@ if (isset($_POST['acceso'])) {
   <div class="body">
     <div class="contenedor">
       <header class="img">
-        <img src="assets/img/UC-Horizontal-White 1.png">
+      <img  src="assets/img/UNCP.png">
       </header>
 
 

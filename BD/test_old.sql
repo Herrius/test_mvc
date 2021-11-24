@@ -80,6 +80,18 @@ CREATE PROCEDURE `SP_REPORTE_AULA_SG`(IN `estiloC` VARCHAR(15), IN `NRCC` INT(6)
 SELECT COUNT(secuencialglobal) AS NESTUDIANTES FROM `tblresultados` WHERE codestudiante IN(SELECT codestudiante FROM `tblconsulta` WHERE NRC=NRCC) AND secuencialglobal=estiloC//
 DELIMITER ;
 
+-- Volcando estructura para tabla test.tblconsulta
+CREATE TABLE IF NOT EXISTS `tblconsulta` (
+  `codestudiante` int(8) NOT NULL,
+  `nombreest` varchar(80) NOT NULL,
+  `NRC` int(6) NOT NULL,
+  PRIMARY KEY (`codestudiante`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Volcando datos para la tabla test.tblconsulta: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tblconsulta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tblconsulta` ENABLE KEYS */;
+
 -- Volcando estructura para tabla test.tblconsultasalon
 CREATE TABLE IF NOT EXISTS `tblconsultasalon` (
   `NRC` int(8) NOT NULL,
@@ -170,15 +182,188 @@ CREATE TABLE IF NOT EXISTS `tblrespuestas` (
   CONSTRAINT `tblrespuestas_ibfk_1` FOREIGN KEY (`pregunta`) REFERENCES `tblpreguntas` (`idpregunta`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=529 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblrespuestas: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla test.tblrespuestas: ~173 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblrespuestas` DISABLE KEYS */;
+INSERT INTO `tblrespuestas` (`id`, `codigo_estudiante`, `pregunta`, `respuesta`) VALUES
+	(45, '76927894@continental.edu.pe', 1, '1'),
+	(46, '76927894@continental.edu.pe', 2, '1'),
+	(47, '76927894@continental.edu.pe', 3, '1'),
+	(48, '76927894@continental.edu.pe', 4, '2'),
+	(49, '76927894@continental.edu.pe', 5, '2'),
+	(50, '76927894@continental.edu.pe', 6, '1'),
+	(51, '76927894@continental.edu.pe', 7, '2'),
+	(52, '76927894@continental.edu.pe', 8, '1'),
+	(53, '76927894@continental.edu.pe', 9, '2'),
+	(54, '76927894@continental.edu.pe', 10, '1'),
+	(55, '76927894@continental.edu.pe', 11, '1'),
+	(56, '76927894@continental.edu.pe', 12, '2'),
+	(57, '76927894@continental.edu.pe', 13, '2'),
+	(58, '76927894@continental.edu.pe', 14, '2'),
+	(59, '76927894@continental.edu.pe', 15, '1'),
+	(60, '76927894@continental.edu.pe', 16, '2'),
+	(61, '76927894@continental.edu.pe', 17, '2'),
+	(62, '76927894@continental.edu.pe', 18, '1'),
+	(63, '76927894@continental.edu.pe', 19, '2'),
+	(64, '76927894@continental.edu.pe', 20, '2'),
+	(65, '76927894@continental.edu.pe', 21, '1'),
+	(66, '76927894@continental.edu.pe', 22, '1'),
+	(67, '76927894@continental.edu.pe', 23, '2'),
+	(68, '76927894@continental.edu.pe', 24, '2'),
+	(69, '76927894@continental.edu.pe', 25, '1'),
+	(70, '76927894@continental.edu.pe', 26, '1'),
+	(71, '76927894@continental.edu.pe', 27, '2'),
+	(72, '76927894@continental.edu.pe', 28, '2'),
+	(73, '76927894@continental.edu.pe', 29, '1'),
+	(74, '76927894@continental.edu.pe', 30, '1'),
+	(75, '76927894@continental.edu.pe', 31, '2'),
+	(76, '76927894@continental.edu.pe', 32, '2'),
+	(77, '76927894@continental.edu.pe', 33, '1'),
+	(78, '76927894@continental.edu.pe', 34, '1'),
+	(79, '76927894@continental.edu.pe', 35, '2'),
+	(80, '76927894@continental.edu.pe', 36, '2'),
+	(81, '76927894@continental.edu.pe', 37, '1'),
+	(82, '76927894@continental.edu.pe', 38, '1'),
+	(83, '76927894@continental.edu.pe', 39, '2'),
+	(84, '76927894@continental.edu.pe', 40, '2'),
+	(85, '76927894@continental.edu.pe', 41, '1'),
+	(86, '76927894@continental.edu.pe', 42, '2'),
+	(87, '76927894@continental.edu.pe', 43, '1'),
+	(88, '76927894@continental.edu.pe', 44, '2'),
+	(398, 'prueba@hotmail.com', 1, '1'),
+	(399, 'prueba@hotmail.com', 2, '2'),
+	(400, 'prueba@hotmail.com', 3, '1'),
+	(401, 'prueba@hotmail.com', 4, '2'),
+	(402, 'prueba@hotmail.com', 5, '1'),
+	(403, 'prueba@hotmail.com', 6, '1'),
+	(404, 'prueba@hotmail.com', 7, '1'),
+	(405, 'prueba@hotmail.com', 8, '2'),
+	(406, 'prueba@hotmail.com', 9, '2'),
+	(407, 'prueba@hotmail.com', 10, '2'),
+	(408, 'prueba@hotmail.com', 11, '2'),
+	(409, 'prueba@hotmail.com', 12, '2'),
+	(410, 'prueba@hotmail.com', 13, '2'),
+	(411, 'prueba@hotmail.com', 14, '2'),
+	(412, 'prueba@hotmail.com', 15, '2'),
+	(413, 'prueba@hotmail.com', 16, '2'),
+	(414, 'prueba@hotmail.com', 17, '2'),
+	(415, 'prueba@hotmail.com', 18, '2'),
+	(416, 'prueba@hotmail.com', 19, '1'),
+	(417, 'prueba@hotmail.com', 20, '2'),
+	(418, 'prueba@hotmail.com', 21, '2'),
+	(419, 'prueba@hotmail.com', 22, '2'),
+	(420, 'prueba@hotmail.com', 23, '2'),
+	(421, 'prueba@hotmail.com', 24, '2'),
+	(422, 'prueba@hotmail.com', 25, '2'),
+	(423, 'prueba@hotmail.com', 26, '1'),
+	(424, 'prueba@hotmail.com', 27, '2'),
+	(425, 'prueba@hotmail.com', 28, '2'),
+	(426, 'prueba@hotmail.com', 29, '2'),
+	(427, 'prueba@hotmail.com', 30, '2'),
+	(428, 'prueba@hotmail.com', 31, '2'),
+	(429, 'prueba@hotmail.com', 32, '2'),
+	(430, 'prueba@hotmail.com', 33, '2'),
+	(431, 'prueba@hotmail.com', 34, '1'),
+	(432, 'prueba@hotmail.com', 35, '2'),
+	(433, 'prueba@hotmail.com', 36, '1'),
+	(434, 'prueba@hotmail.com', 37, '2'),
+	(435, 'prueba@hotmail.com', 38, '2'),
+	(436, 'prueba@hotmail.com', 39, '1'),
+	(437, 'prueba@hotmail.com', 40, '1'),
+	(438, 'prueba@hotmail.com', 41, '2'),
+	(439, 'prueba@hotmail.com', 42, '2'),
+	(440, 'prueba@hotmail.com', 43, '2'),
+	(442, 'juanca@hotmail.com', 1, '1'),
+	(443, 'juanca@hotmail.com', 2, '0'),
+	(444, 'juanca@hotmail.com', 3, '0'),
+	(445, 'juanca@hotmail.com', 4, '0'),
+	(446, 'juanca@hotmail.com', 5, '0'),
+	(447, 'juanca@hotmail.com', 6, '0'),
+	(448, 'juanca@hotmail.com', 7, '0'),
+	(449, 'juanca@hotmail.com', 8, '0'),
+	(450, 'juanca@hotmail.com', 9, '0'),
+	(451, 'juanca@hotmail.com', 10, '0'),
+	(452, 'juanca@hotmail.com', 11, '0'),
+	(453, 'juanca@hotmail.com', 12, '0'),
+	(454, 'juanca@hotmail.com', 13, '0'),
+	(455, 'juanca@hotmail.com', 14, '0'),
+	(456, 'juanca@hotmail.com', 15, '0'),
+	(457, 'juanca@hotmail.com', 16, '0'),
+	(458, 'juanca@hotmail.com', 17, '0'),
+	(459, 'juanca@hotmail.com', 18, '0'),
+	(460, 'juanca@hotmail.com', 19, '0'),
+	(461, 'juanca@hotmail.com', 20, '0'),
+	(462, 'juanca@hotmail.com', 21, '0'),
+	(463, 'juanca@hotmail.com', 22, '0'),
+	(464, 'juanca@hotmail.com', 23, '0'),
+	(465, 'juanca@hotmail.com', 24, '0'),
+	(466, 'juanca@hotmail.com', 25, '0'),
+	(467, 'juanca@hotmail.com', 26, '0'),
+	(468, 'juanca@hotmail.com', 27, '0'),
+	(469, 'juanca@hotmail.com', 28, '0'),
+	(470, 'juanca@hotmail.com', 29, '0'),
+	(471, 'juanca@hotmail.com', 30, '0'),
+	(472, 'juanca@hotmail.com', 31, '0'),
+	(473, 'juanca@hotmail.com', 32, '0'),
+	(474, 'juanca@hotmail.com', 33, '0'),
+	(475, 'juanca@hotmail.com', 34, '0'),
+	(476, 'juanca@hotmail.com', 35, '0'),
+	(477, 'juanca@hotmail.com', 36, '0'),
+	(478, 'juanca@hotmail.com', 37, '0'),
+	(479, 'juanca@hotmail.com', 38, '0'),
+	(480, 'juanca@hotmail.com', 39, '0'),
+	(481, 'juanca@hotmail.com', 40, '0'),
+	(482, 'juanca@hotmail.com', 41, '0'),
+	(483, 'juanca@hotmail.com', 42, '0'),
+	(484, 'juanca@hotmail.com', 43, '0'),
+	(486, '77777777@cono.com', 1, '1'),
+	(487, '77777777@cono.com', 2, '2'),
+	(488, '77777777@cono.com', 3, '0'),
+	(489, '77777777@cono.com', 4, '0'),
+	(490, '77777777@cono.com', 5, '0'),
+	(491, '77777777@cono.com', 6, '0'),
+	(492, '77777777@cono.com', 7, '0'),
+	(493, '77777777@cono.com', 8, '0'),
+	(494, '77777777@cono.com', 9, '0'),
+	(495, '77777777@cono.com', 10, '0'),
+	(496, '77777777@cono.com', 11, '0'),
+	(497, '77777777@cono.com', 12, '0'),
+	(498, '77777777@cono.com', 13, '0'),
+	(499, '77777777@cono.com', 14, '0'),
+	(500, '77777777@cono.com', 15, '0'),
+	(501, '77777777@cono.com', 16, '0'),
+	(502, '77777777@cono.com', 17, '0'),
+	(503, '77777777@cono.com', 18, '0'),
+	(504, '77777777@cono.com', 19, '0'),
+	(505, '77777777@cono.com', 20, '0'),
+	(506, '77777777@cono.com', 21, '0'),
+	(507, '77777777@cono.com', 22, '0'),
+	(508, '77777777@cono.com', 23, '0'),
+	(509, '77777777@cono.com', 24, '0'),
+	(510, '77777777@cono.com', 25, '0'),
+	(511, '77777777@cono.com', 26, '0'),
+	(512, '77777777@cono.com', 27, '0'),
+	(513, '77777777@cono.com', 28, '0'),
+	(514, '77777777@cono.com', 29, '0'),
+	(515, '77777777@cono.com', 30, '0'),
+	(516, '77777777@cono.com', 31, '0'),
+	(517, '77777777@cono.com', 32, '0'),
+	(518, '77777777@cono.com', 33, '0'),
+	(519, '77777777@cono.com', 34, '0'),
+	(520, '77777777@cono.com', 35, '0'),
+	(521, '77777777@cono.com', 36, '0'),
+	(522, '77777777@cono.com', 37, '0'),
+	(523, '77777777@cono.com', 38, '0'),
+	(524, '77777777@cono.com', 39, '0'),
+	(525, '77777777@cono.com', 40, '0'),
+	(526, '77777777@cono.com', 41, '0'),
+	(527, '77777777@cono.com', 42, '0'),
+	(528, '77777777@cono.com', 43, '0');
 /*!40000 ALTER TABLE `tblrespuestas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.tblresultados
 CREATE TABLE IF NOT EXISTS `tblresultados` (
   `idresultado` int(10) NOT NULL AUTO_INCREMENT,
   `codestudiante` varchar(27) NOT NULL,
-  `fullnombre` varchar(50) DEFAULT NULL,
   `nivelactref` int(3) NOT NULL,
   `nivelsenint` int(3) NOT NULL,
   `nivelvisver` int(3) NOT NULL,
@@ -189,10 +374,14 @@ CREATE TABLE IF NOT EXISTS `tblresultados` (
   KEY `FK_tblresultados_users_2` (`curso`),
   CONSTRAINT `FK_tblresultados_users` FOREIGN KEY (`codestudiante`) REFERENCES `users` (`email`),
   CONSTRAINT `FK_tblresultados_users_2` FOREIGN KEY (`curso`) REFERENCES `users` (`curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.tblresultados: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla test.tblresultados: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `tblresultados` DISABLE KEYS */;
+INSERT INTO `tblresultados` (`idresultado`, `codestudiante`, `nivelactref`, `nivelsenint`, `nivelvisver`, `nivelsecglo`, `curso`) VALUES
+	(58, '76927894@continental.edu.pe', 27, 36, 64, 82, NULL),
+	(61, 'prueba@hotmail.com', 82, 73, 64, 73, NULL),
+	(63, '77777777@cono.com', 0, 9, 0, 0, 'TALLER DE PROYEC DE ING I');
 /*!40000 ALTER TABLE `tblresultados` ENABLE KEYS */;
 
 -- Volcando estructura para tabla test.users
@@ -209,13 +398,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`),
   KEY `FK_users_tblconsultasalon` (`curso`),
   CONSTRAINT `FK_users_tblconsultasalon` FOREIGN KEY (`curso`) REFERENCES `tblconsultasalon` (`Nombreasignatura`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla test.users: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla test.users: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `password`, `id_rol`, `codigo`, `curso`, `nombres`, `apellidos`) VALUES
+	(3, '76927894@continental.edu.pe', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, 'sin curso', NULL, NULL),
+	(4, 'asd@hot.com', 'e10adc3949ba59abbe56e057f20f883e', 1, NULL, 'sin curso', NULL, NULL),
+	(5, 'gabu@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, 'sin curso', NULL, NULL),
+	(6, 'pedro@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, 'sin curso', NULL, NULL),
+	(7, 'prueba@hotmail.com', '202cb962ac59075b964b07152d234b70', 0, NULL, 'sin curso', NULL, NULL),
+	(8, 'juanca@hotmail.com', '202cb962ac59075b964b07152d234b70', 0, NULL, 'sin curso', NULL, NULL),
 	(9, 'ymarquez@continental.edu.pe', '92ceea77935fb95f3bf6ae2d3264f57a', 1, NULL, 'TALLER DE PROYEC DE ING I', 'yuri', 'marquez'),
-	(10, 'normagamarra@continenta.edu.pe', '2914bd924260c43f554746fe921bd9b5', 1, NULL, 'BIOTECNOLOGÍA', 'norma', 'gamarra');
+	(10, 'normagamarra@continenta.edu.pe', 'normagamarra', 1, NULL, 'BIOTECNOLOGÍA', 'norma', 'gamarra'),
+	(14, '77777777@cono.com', 'e10adc3949ba59abbe56e057f20f883e', 0, '77777777', 'TALLER DE PROYEC DE ING I', 'rotzank', 'dross');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

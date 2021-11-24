@@ -5,7 +5,7 @@ class Docente extends ModeloBase {
 	
 	public function identidad($codigo){
 		$db=new ModeloBase();
-		$query="SELECT * FROM tblconsulta where codestudiante='$codigo'";
+		$query="SELECT * FROM tblresultados where codestudiante='$codigo'";
 		$resultado=$db->obtenerTodos($query);
 		return $resultado;
 	}
