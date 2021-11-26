@@ -5,10 +5,12 @@ require_once 'controllers/UsuarioController.php';
 $usuario = new UsuarioController();
 $usuario->login();
 
+
+
 if (isset($_POST['acceso'])) {
     $datos = array(
         'email'    => $_POST['email'],
-        'password' => md5($_POST['password'])
+        'password' => md5($_POST['password']),
     );
     $respuesta = $usuario->accesoUsuario($datos);
 }

@@ -4,7 +4,8 @@
     $conn=mysqli_connect ('localhost','root','','test');
 
     $salida="";
-    $query="SELECT * FROM tblconsultasalon WHERE NRC=12000";
+
+    $query="SELECT * FROM tblconsultasalon WHERE docente='ymarquez@continental.edu.pe'";
 
     if (isset($_POST['consulta'])) {
     	$q = $conn->real_escape_string($_POST['consulta']);

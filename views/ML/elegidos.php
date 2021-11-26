@@ -2,38 +2,44 @@
 require_once 'controllers/TestController.php';
 $test = new TestController();
 
+
 if (isset($_GET['idpregunta'])) {
     $pagina  = $_GET['idpregunta'];
 } else { //Por defecto inicamos la página en 1, es decir, registro numero 1.
-    $pagina = 1;
+    $pagina = 0;
 }
 $codigo = $_GET['codigo'];
 
 //verficiar que exista en la BD
-$cantidad = $test->comprobarExistencia($codigo);
+$cantidad = $test->comprobarExistenciaML($codigo);
 foreach ($cantidad as $r) {
     $codigo_validador = $r['codigo'];
 }
+$ubicacion=[1,2,8,14,15,16,17,20,22,24,26,27,30,31,33,35,36,37,39,41];
 
-if ($codigo_validador < 43) {
+if ($codigo_validador < 19) {
     $pregunta=0;
-    while ($pregunta <= 44) {
+    while ($pregunta <= 19) {
         $data_test = array(
             'codigo_estudiante' => $codigo,
-            'pregunta' => $pregunta,
+            'pregunta' => $ubicacion[$pregunta],
             'respuesta' => 0,
         );
+        var_dump($ubicacion[$pregunta]);
         $pregunta++;
         
-        $test->crearResultados($data_test);
+        $test->crearResultadosML($data_test);
  
     }
 }
 //Cantidad de registro a mostrar en paginación.
 $cantidad_reg = 1;
 //Localizacion SQL.
-$ubicacion = ($pagina - 1) * $cantidad_reg;
-$preguntas = $test->obtenerPagina($ubicacion, $cantidad_reg);
+
+$posicion = $_GET['idpregunta'];
+if($posicion<20){
+$preguntas = $test->obtenerPagina($ubicacion[$posicion]-1,$cantidad_reg);
+}
 //Obtenemos datos a mostrar para la páginación.   
 if (!empty($preguntas)) {
     foreach ($preguntas as $r) {
@@ -82,28 +88,27 @@ $next = $pagina + 1;
                 <img src="assets/img/UC-Horizontal-White 1.png">
             </header>
             <!-- para capturar los datos se necesita de un form con method post -->
-            <form class="conti" method="post" action="<?php if ($next <= 45) {
-                                                            print 'index.php?page=test&codigo=' . $codigo . '&idpregunta=' . $next;
+            <form class="conti" method="post" action="<?php if ($next <= 20) {
+                                                            print 'index.php?page=test&codigo=' . $codigo . '&idpregunta=' . $next.'&view=elegidos';
                                                         } else {
-                                                            print 'index.php?page=test&view=resultado&codigo=' . $codigo;
+                                                            print 'index.php?page=test&view=resultadoml&codigo=' . $codigo;
                                                         } ?>">
-                <h3 style="color:grey"><?php if ($next <= 45) {
+                <h3 style="color:grey"><?php if ($next <= 20) {
                                             echo ('Pregunta ' . utf8_encode($idpregunta) . ' de 44');
                                         } else echo 'Test finalizado' ?></h3>
                 <h1> Yachayqay Test </h1>
 
                 <!--  Mostramos datos para paginación -->
 
-                <h2><?php if ($next <= 45) echo $enunciado;
+                <h2><?php if ($posicion === 20) echo $enunciado;
                     else echo "Muchas gracias por completar el test de Estilos de aprendizaje"; ?></h2>
 
                 <div class="radio-toolbar">
                     <input type=radio id="A" name="question" value='1' onclick='return activar();' />
-                    <label for="A" style="<?php if ($next >= 46) print("display: none;") ?>"><?php echo $opcion1; ?></label>
+                    <label for="A" style="<?php if ($next >= 21) print("display: none;") ?>"><?php echo $opcion1; ?></label>
 
                     <input type=radio id="B" name="question" value='2' onclick='return activar();' />
-                    <label for="B" style="<?php if ($next >= 46) echo "display: none;" ?>"" class=" hidden"><?php if ($next <= 45) echo $opcion2;
-                                                                                                        else echo "Gracias"; ?></label>
+                    <label for="B" style="<?php if ($next >= 21) echo "display: none;" ?>"" class=" hidden"><?php echo $opcion2;?></label>
 
                 </div>
 
@@ -125,8 +130,8 @@ $next = $pagina + 1;
 
     
                     //Boton 'Anterior'
-                    if ($prev > 0) {
-                        echo ("<a class='siguiente' href='index.php?page=test&codigo=$codigo&idpregunta=$prev'>Anterior</a>");
+                    if ($prev >= 0) {
+                        echo ("<a class='siguiente' href='index.php?page=test&codigo=$codigo&idpregunta=$prev&view=elegidos'>Anterior</a>");
                     }
 
                     //Opcional, visualizar el total de paginas, es decir, podrias crear algo similar a  < 1 2 3 4 > .       
@@ -135,40 +140,58 @@ $next = $pagina + 1;
                     //}
 
                     //Boton 'Siguiente'
-                    if ($pagina <= $total_pagina) {
+                    if ($pagina <= 19) {
                         echo "<button class='siguiente' type='submit' name='grabar' id='respuestaA' onclick='return desactivar();'>Siguiente</button>";
                     }
                     //Pagina final donde se ejecuta el proceso de guardar los resultados
-                    if ($pagina == 45) {
+                    if ($pagina > 19) {
                         echo "<button class='siguiente' type='submit' name='grabar' id='respuestaA'>Finalizar</button>";
-                        //filtrado de datos segun el tipo de estilos de aprendizaje
-                        $resultado = $test->calcularPorcentaje($codigo, 'Act-Ref');
-                        $resultado1 = $test->calcularPorcentaje($codigo, 'Sec-Glo');
-                        $resultado2 = $test->calcularPorcentaje($codigo, 'Sen-Int');
-                        $resultado3 = $test->calcularPorcentaje($codigo, 'Vis-Ver');
-                        foreach ($resultado as $r) {
-                            $reflexivo = (($r['numero'] / 11) * 100);
+                        //ml
+                        $activo=[1,17,33,37,41];
+                        $activo=$test->capturarRespuestas($activo);
+                        $temp=[];
+                        foreach($activo as $r){
+                            array_push($temp,$r['respuesta']);
                         }
-                        foreach ($resultado1 as $r) {
-                            $global = (($r['numero'] / 11) * 100);
+                        $activo = file_get_contents('https://estilos-ml.herokuapp.com/activot?pregunta1='.$temp[0].'&pregunta17='.$temp[1].'&pregunta33='.$temp[2].'&pregunta37='.$temp[3].'&pregunta41='.$temp[4]);
+                        
+                        $global=[8,16,20,24,36];
+                        $global=$test->capturarRespuestas($global);
+                        $temp=[];
+                        foreach($global as $r){
+                            array_push($temp,$r['respuesta']);
                         }
-                        foreach ($resultado2 as $r) {
-                            $intuitivo = (($r['numero'] / 11) * 100);
+                        $global = file_get_contents('https://estilos-ml.herokuapp.com/globalt?pregunta8='.$temp[0].'&pregunta16='.$temp[1].'&pregunta20='.$temp[2].'&pregunta24='.$temp[3].'&pregunta36='.$temp[4]);
+                        
+                        $sensorial=[2,14,22,26,30];
+                        $sensorial=$test->capturarRespuestas($sensorial);
+                        $temp=[];
+                        foreach($sensorial as $r){
+                            array_push($temp,$r['respuesta']);
                         }
-                        foreach ($resultado3 as $r) {
-                            $verbal = (($r['numero'] / 11) * 100);
+                        
+                        $sensorial = file_get_contents('https://estilos-ml.herokuapp.com/sensitivot?pregunta2='.$temp[0].'&pregunta14='.$temp[1].'&pregunta22='.$temp[2].'&pregunta26='.$temp[3].'&pregunta30='.$temp[4]);
+                        
+                        $verbal=[15,27,31,35,39];
+                        $verbal=$test->capturarRespuestas($verbal);
+                        $temp=[];
+                        foreach($verbal as $r){
+                            array_push($temp,$r['respuesta']);
                         }
+                        $verbal = file_get_contents('https://estilos-ml.herokuapp.com/verbalt?pregunta15='.$temp[0].'&pregunta27='.$temp[1].'&pregunta31='.$temp[2].'&pregunta35='.$temp[3].'&pregunta39='.$temp[4]);
+                        
+                       
 
                         //envio a la base de datos
                         $datos = array(
                             'codestudiante'    => $codigo,
-                            'nivelactref' => $reflexivo, 
-                            'nivelsenint' => $intuitivo, 
+                            'nivelactref' => abs($activo-100), 
+                            'nivelsenint' => abs($sensorial-100), 
                             'nivelvisver' => $verbal, 
                             'nivelsecglo' => $global, 
                             'curso' => '', 
                         );
-                        $test->guardarResultados($datos);
+                        $test->guardarResultados_ml($datos);
                     }
 
                     ?>
@@ -176,10 +199,10 @@ $next = $pagina + 1;
             <!-- es la consulta que se debe llevar a store procedure -->
             <?php
 
-            if (isset($_POST['question'])) {
+            if (isset($_POST['question']) && $posicion<20) {
                 $respuesta = intval($_POST['question']);
-                $variable = $pagina - 1;
-                $test->actualizarRespuesta($respuesta, $codigo, $variable);
+                $variable = $idpregunta-1;
+                $test->actualizarRespuestaML($respuesta, $codigo, $variable);
             }
             ?>
         </div>

@@ -6,10 +6,6 @@ $page = $_GET['page'];
 if (!empty($page)) {
   #http://curso-php.test/cms/index.php?page=buscar
   $data = array(
-    'blog' => array('model' => 'Blog', 'view' => 'index', 'controller' => 'BlogController'),
-    'publicar' => array('model' => 'Blog', 'view' => 'publicar', 'controller' => 'BlogController'), #Crear un artículo
-    'articulo' => array('model' => 'Blog', 'view' => 'leerArticulo', 'controller' => 'BlogController'), #Mostrar la información del artículo
-    'buscar' => array('model' => 'Blog', 'view' => 'resultadoBusqueda', 'controller' => 'BlogController'), #Encargado de buscar
     #cambios de test
     'docente' => array('model' => 'Docente', 'view' => 'docente', 'controller' => 'DocenteController'),
     'alumno' => array('model' => 'Docente', 'view' => 'alumno', 'controller' => 'DocenteController'),

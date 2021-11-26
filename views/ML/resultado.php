@@ -16,7 +16,7 @@
     $test = new TestController();
 
     $resultado = $_GET['codigo'];
-    $consultarResultado = $test->consultarResultado($resultado);
+    $consultarResultado = $test->consultarResultado_ml($resultado);
     foreach ($consultarResultado as $row) {
         $codestudiante = $row['codestudiante'];
         // datos

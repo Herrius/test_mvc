@@ -4,7 +4,7 @@
     $conn=mysqli_connect ('localhost','root','','test');
 
     $salida="";
-    $query="CALL SP_BUSQUEDA_SALON";
+    $query="CALL SP_BUSQUEDA_SALON($docente)";
 
     if (isset($_POST['consulta'])) {
     	$q = $conn->real_escape_string($_POST['consulta']);

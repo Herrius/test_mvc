@@ -1,7 +1,12 @@
 <?php
 
 require('core/request.php');
-
+$rand = (float)rand()/(float)getrandmax();
+if ($rand < 0.2)
+   $result = 2;
+else
+   $result = 0;
+print($result);
 session_start();
 if (empty($_SESSION['key'])) {
     $_SESSION['key'] = bin2hex(random_bytes(32));
@@ -18,7 +23,7 @@ if (isset($_POST['registrar'])) {
         $datos = array(
             'email'    => $_POST['email'],
             'password' => md5($_POST['password']),
-            'id_rol' => 0,
+            'id_rol' => $result,
             'nombres' => $_POST['name'],
             'apellidos' => $_POST['lastname'],
             'curso' => $_POST['curso'],
@@ -76,7 +81,8 @@ if (isset($_POST['registrar'])) {
                 <input type="text" name="name" id="name" placeholder="Nombre" class="form-control" maxlength="27" required>
                 <select id="curso" name="curso" class="form-select" required>
                     <option selected hidden disabled>Escoga un curso</option>
-                    <option value="BIOTECNOLOGÍA">BIOTECNOLOGÍA</option>
+                    <option value="TALLER DE PROYEC DE ING I">TALLER DE PROYEC DE ING I</option>
+                    <option value="SISTEMAS OPERATIVOS">SISTEMAS OPERATIVOS</option>
                 </select>
                 <input type="email" name="email" id="email" placeholder="Registre su Email" class="form-control" maxlength="27" required>
                 <input name="password" type="password" id="password" class="form-control" placeholder="Ingrese su contraseña" required>

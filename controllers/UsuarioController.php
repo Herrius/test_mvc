@@ -58,8 +58,13 @@ class UsuarioController {
 			if ($_SESSION['id_rol'] == 1) {
 				header('Location: index.php?page=docente');
         die();
-			} else {
-				header('Location: index.php?page=test&codigo='.$datos["email"]);
+			} 
+		if($_SESSION['id_rol'] == 2){
+				header('Location: index.php?page=test&codigo='.$datos["email"].'&idpregunta=0&view=elegidos');
+        die();
+			}
+			else {
+				header('Location: index.php?page=test&codigo='.$datos["email"].'&idpregunta=1');
         die();
 			}
 
