@@ -73,7 +73,7 @@
                                 foreach($result as $r){
                                 }
                             ?>
-                            <p class="student-title"><?php print($r['fullnombre']) ?></p>
+                            <p class="student-title"><?php print($r['apellidos']+' '+$r['nombres']) ?></p>
                             <ul>
                                 <li>Ciclo 10</li>
                                 <li>Sede: Huancayo</li>
