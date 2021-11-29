@@ -15,15 +15,15 @@ class Docente extends ModeloBase {
 		$resultado=$db->obtenerTodos($query);
 		return $resultado;
 	}
-	public function contar(){
+	public function contar($curso){
 		$db=new ModeloBase();
-		$query="SELECT curso,COUNT(DISTINCT codestudiante) AS ESTUDIANTES FROM tblresultados GROUP BY curso HAVING curso='BIOTECNOLOGIA'";
+		$query="SELECT curso,COUNT(DISTINCT codestudiante) AS ESTUDIANTES FROM tblresultados GROUP BY curso HAVING curso='$curso'";
 		$resultado=$db->obtenerTodos($query);
 		return $resultado;
 	}
-	public function contarestilo($estilo){
+	public function contarestilo($estilo,$curso){
 		$db=new ModeloBase();
-		$query="SELECT COUNT($estilo) AS ESTILO,AVG($estilo) AS PROMEDIO FROM tblresultados WHERE codestudiante IN(SELECT DISTINCT codestudiante FROM tblresultados WHERE curso='BIOTECNOLOGIA') AND $estilo>50";
+		$query="SELECT COUNT($estilo) AS ESTILO,AVG($estilo) AS PROMEDIO FROM tblresultados WHERE codestudiante IN(SELECT DISTINCT codestudiante FROM tblresultados WHERE curso='$curso') AND $estilo>50";
 		$resultado=$db->obtenerTodos($query);
 		return $resultado;
 	}

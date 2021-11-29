@@ -25,7 +25,6 @@ if ($codigo_validador < 19) {
             'pregunta' => $ubicacion[$pregunta],
             'respuesta' => 0,
         );
-        var_dump($ubicacion[$pregunta]);
         $pregunta++;
         
         $test->crearResultadosML($data_test);
@@ -100,7 +99,7 @@ $next = $pagina + 1;
 
                 <!--  Mostramos datos para paginación -->
 
-                <h2><?php if ($posicion === 20) echo $enunciado;
+                <h2><?php if ( $next <= 19) echo $enunciado;
                     else echo "Muchas gracias por completar el test de Estilos de aprendizaje"; ?></h2>
 
                 <div class="radio-toolbar">
@@ -201,7 +200,7 @@ $next = $pagina + 1;
 
             if (isset($_POST['question']) && $posicion<20) {
                 $respuesta = intval($_POST['question']);
-                $variable = $idpregunta-1;
+                $variable = $ubicacion[$posicion-1];
                 $test->actualizarRespuestaML($respuesta, $codigo, $variable);
             }
             ?>

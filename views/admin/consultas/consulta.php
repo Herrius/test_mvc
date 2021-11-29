@@ -1,6 +1,6 @@
 <?php
 function busquedaestudiante($q) {
-    $query = "SELECT * FROM tblconsulta WHERE codestudiante LIKE '%$q%' OR nombreest LIKE '%$q%'";
+    $query = "SELECT * FROM tblresultado WHERE codestudiante LIKE '%$q%' ";
     return $query;
 }
 

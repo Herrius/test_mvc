@@ -89,6 +89,10 @@ class TestController {
 		$resultado=new Test();
 		return $resultado->crearResultadosML($data_test);
 	}
+	public function consultarResultado($codigo){
+		$resultado=new Test();
+		return $resultado->consultarResultado($codigo);
+	}
 	public function consultarResultado_ml($codigo){
 		$resultado=new Test();
 		return $resultado->consultarResultado_ml($codigo);

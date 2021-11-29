@@ -2,11 +2,19 @@
 //consulta mvc
  require_once 'controllers/DocenteController.php';
  $docente = new DocenteController();
- $estudiante=$docente->contar();
- $reflexivo=$docente->contarEstilo('nivelactref');
- $intuitivo=$docente->contarEstilo('nivelsenint');
- $verbal=$docente->contarEstilo('nivelvisver');
- $global=$docente->contarEstilo('nivelsecglo');
+
+  // consulta directa
+  $conn=mysqli_connect ('localhost','root','','test');
+  $nrc=$_GET['nrc'];
+  $query="SELECT * FROM tblconsultasalon where nrc='$nrc'";
+  $result=mysqli_query($conn,$query);
+  $result=mysqli_fetch_array($result);
+
+ $estudiante=$docente->contar($result['Nombreasignatura']);
+ $reflexivo=$docente->contarEstilo('nivelactref',$result['Nombreasignatura']);
+ $intuitivo=$docente->contarEstilo('nivelsenint',$result['Nombreasignatura']);
+ $verbal=$docente->contarEstilo('nivelvisver',$result['Nombreasignatura']);
+ $global=$docente->contarEstilo('nivelsecglo',$result['Nombreasignatura']);
 
  foreach($reflexivo as $r){
     $cantidadr=$r['ESTILO'];
@@ -24,12 +32,7 @@
     $cantidadg=$r['ESTILO'];
     $promediog=$r['PROMEDIO'];
  }
- // consulta directa
-  $conn=mysqli_connect ('localhost','root','','test');
-  $nrc=$_GET['nrc'];
-  $query="SELECT * FROM tblconsultasalon where nrc='$nrc'";
-  $result=mysqli_query($conn,$query);
-  $result=mysqli_fetch_array($result);
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

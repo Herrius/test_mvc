@@ -1,6 +1,4 @@
-<?php
-    $docente=$_GET['docente'];
-?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
